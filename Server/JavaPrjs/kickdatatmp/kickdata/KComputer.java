@@ -1,35 +1,45 @@
-package ss;
+package kickdata;
 
+import java.io.Serializable;
+
+import javax.persistence.Access;
 import javax.persistence.Column;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-public class KComputer {
-	@Facilityid
-	private int Facilityid;
-	@Column(length=50)
+import javax.persistence.AccessType;
+@Entity
+@Access(AccessType.PROPERTY)
+public class KComputer extends KFacility implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -109185852638880878L;
 	private String name;
-	@ManyToOne 
-	@JoinColumn(name="Facility")
-	public KFacility Facility;
-	public int getFacilityid() {
-		return Facilityid;
+	private KFacility Facilityid;
+	public KComputer(){}
+	public KComputer(String name, KFacility facilityid) {
+		this.name = name;
+		Facilityid = facilityid;
 	}
-	public void setFacilityid(int facilityid) {
-		this.Facilityid = facilityid;
-	}
+	@Column(name="name",length=50)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-        public KComputer( String name, int facilityid) {
-		this.name = name;
+	@Id
+	@ManyToOne 
+	@JoinColumn(name="Facilityid")
+	
+	public KFacility getFacilityid() {
+		return Facilityid;
+	}
+	public void setFacilityid(KFacility facilityid) {
 		this.Facilityid = facilityid;
 	}
+	
 	
 }
